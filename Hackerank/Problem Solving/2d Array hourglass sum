@@ -1,0 +1,20 @@
+int hourglassSum(vector<vector<int>> arr) {
+    int sum=INT_MIN;
+    for(int i=0;i<=3;i++)
+    {
+        for(int j=0;j<=3;j++)
+        {
+            int curr=0;
+            for(int k=j;k<=j+2;k++)
+            {
+                curr+=arr[i][k];
+                curr+=arr[i+2][k];
+            }
+            curr+=arr[i+1][j+1];
+            sum=max(curr,sum);
+            cout<<curr<<" ";
+        }
+    }
+    
+    return sum; 
+}
