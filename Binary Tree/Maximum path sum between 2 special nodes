@@ -1,0 +1,30 @@
+class Solution
+{
+    // special node is either root node with only one child or leaf node.
+    // T.C- O(N)
+    int ans=Integer.MIN_VALUE;
+    int F(Node root)
+    {
+        if(root==null) return Integer.MIN_VALUE;
+        if(root.left==null && root.right==null) return root.data;
+        
+        int left=F(root.left);
+        int right=F(root.right);
+        
+        if(root.left!=null && root.right!=null)ans=Math.max(ans,root.data+left+right);
+        if(left>right) return root.data+left;
+        else return root.data+right;
+    }
+    int maxPathSum(Node root)
+    { 
+        // code here 
+        int temp=F(root);
+        if(root.left==null || root.right==null) // it means root is special node, int that case we have to check that path also
+        {
+            if(temp>ans) return temp;
+            else return ans;
+        }
+        
+        return ans;
+    } 
+}
