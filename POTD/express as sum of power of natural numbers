@@ -1,0 +1,30 @@
+class Solution
+{
+    static int[][] dp=new int[1001][1001];
+    static final int mod = 1000000007;
+    static int F(int sum,int i,int x)
+    {
+        if(sum==0) return 1;
+        if(sum<0) return 0;
+        
+        if(dp[sum][i]!=-1) return dp[sum][i];
+        
+        int curr=(int)Math.pow(i,x);
+        if(curr>sum) return 0;
+        
+        int pick=0;
+        if(sum-curr>=0) pick=F(sum-curr,i+1,x);
+        int npick=F(sum,i+1,x);
+        
+        return dp[sum][i]=(pick+npick)%mod;
+    }
+    static int numOfWays(int n, int x)
+    {
+        // code here
+        for(int i=0;i<1001;i++)
+        {
+            Arrays.fill(dp[i],-1);
+        }
+        return F(n,1,x);
+    }
+}
