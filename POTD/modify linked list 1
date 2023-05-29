@@ -1,0 +1,75 @@
+class Solution
+{
+    public static Node reverse(Node head)
+    {
+        if(head==null) return null;
+        Node curr=head;
+        Node prev=null;
+        while(curr!=null)
+        {
+            Node next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    public static Node modifyTheList(Node head)
+    {
+        // step 1 find the middle of the linklist 
+        Node fast=head;
+        Node slow=head;
+        while(fast.next!=null && fast.next.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        if(fast.next==null)    // even no of nodes
+        {
+            // reverse the second half of list
+            slow.next=reverse(slow.next);
+            Node first=head;
+            Node second=slow.next;
+            while(first!=slow) 
+            {
+                first.data=second.data-first.data;
+                first=first.next;
+                second=second.next;
+            }
+            first=head;
+            second=slow.next;
+            while(first!=slow) 
+            {
+                second.data=second.data-first.data;
+                first=first.next;
+                second=second.next;
+            }
+            // reverse again
+            slow.next=reverse(slow.next);
+        }
+        else{   // even no of nodes
+             // reverse the second half of list
+            slow.next=reverse(slow.next);
+            Node first=head;
+            Node second=slow.next;
+            while(first!=slow.next) 
+            {
+                first.data=second.data-first.data;
+                first=first.next;
+                second=second.next;
+            }
+            first=head;
+            second=slow.next;
+            while(first!=slow.next) 
+            {
+                second.data=second.data-first.data;
+                first=first.next;
+                second=second.next;
+            }
+            // reverse again
+            slow.next=reverse(slow.next);
+        }
+        
+        return head;
+    }
+}
