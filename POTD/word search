@@ -1,0 +1,43 @@
+class Solution
+{
+    Boolean visited[][];    //declared here
+    public boolean search(int i,int j,char[][] board,String word,int n,int m,int idx)
+    {
+        if(idx<0) return true;  // only one condition for true
+        if(i<0 || j<0 || i>=n || j>=m) return false;
+        if(visited[i][j]) return false;
+        if(word.charAt(idx)!=board[i][j]) return false;
+        visited[i][j]=true; //only if they are equal only then mark it as visited
+        
+        if(search(i-1,j,board,word,n,m,idx-1)|| // top
+                search(i,j+1,board,word,n,m,idx-1)||    // right
+                search(i+1,j,board,word,n,m,idx-1)|| //bottom
+                search(i,j-1,board,word,n,m,idx-1)) //left
+                return true;
+                
+        visited[i][j]=false;    // it is necessary to reduce compexity otherwise  every time (first char matches) we have to reset the visited array to false 
+        return false;        
+    }
+    public boolean isWordExist(char[][] board, String word)
+    {
+        // Code here
+        int n=board.length; // no of row
+        int m=board[0].length;  // no of column 
+        
+        char ch=word.charAt(word.length()-1);  // started searching from behind
+        
+        visited =new Boolean[n][m]; // defined here
+        for(Boolean[] arr:visited) Arrays.fill(arr,false);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                //for(Boolean[] arr:visited) Arrays.fill(arr,false);  // necessary to reset the visited array for each starting pattern matcing
+                // above for loop is indreasing the TC line no. 18 reduces the TC
+                if(ch==board[i][j] && search(i,j,board,word,n,m,word.length()-1)) return true;
+            }
+        }
+        
+        return false;
+    }
+}
