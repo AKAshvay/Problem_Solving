@@ -1,0 +1,85 @@
+// recursive solution
+class Solution {
+    static int idx=0;
+    public static Node treeFromString(String s) {
+        // three things i have learnt from this question
+        //1> recursion with idx
+        //2> string builder  
+        //3> int n= Integer.parseInt(str);  string to int
+        
+        idx=0; // for  every test cases reset it to zero
+        Node ans=solve(s);
+        return ans;
+    }
+    public static Node solve(String s)
+    {
+        if(idx>=s.length()) return null;
+        
+        if(s.charAt(idx)==')')  // special test case input- 1()(3)
+        {
+            idx++;
+            return null;
+        }
+        
+        StringBuilder sb=new StringBuilder("");
+        while(idx<s.length() && s.charAt(idx)>='0' && s.charAt(idx)<='9')
+        {
+            sb.append(s.charAt(idx));
+            idx++;
+        }
+        
+        int data=Integer.parseInt(sb.toString());
+        Node root=new Node(data);
+        
+        if(idx<s.length() && s.charAt(idx)=='(')
+        {
+            idx++;
+            root.left=solve(s);
+        }
+        if(idx<s.length() && s.charAt(idx)=='(')
+        {
+            idx++;
+            root.right=solve(s);
+        }
+        
+        idx++;  // how to think this  idx++ this is tricky part 
+        return root;
+    }
+}
+
+// iterative solution using stack
+// note for input- 1()(3) this code doesnt pass test cases
+
+class Solution {
+    public static Node treeFromString(String s) {
+        // code here
+        Stack<Node> st=new Stack<>(); 
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)!='(' && s.charAt(i)!=')')
+            {
+                StringBuilder sb=new StringBuilder("");
+                while(i<s.length() && s.charAt(i)>='0' && s.charAt(i)<='9')
+                sb.append(s.charAt(i++));
+                
+                Node root=new Node(Integer.parseInt(sb.toString()));
+                st.push(root);
+                i--;
+            }
+            else if(s.charAt(i)==')')
+            {
+                Node temp=st.pop();
+                
+                
+                 if(st.peek().left==null) st.peek().left=temp;
+                    else st.peek().right=temp;
+                   
+                
+            }
+            
+            // we dont have to do any thing for '('
+        }
+        
+        return st.peek();
+    }
+}
