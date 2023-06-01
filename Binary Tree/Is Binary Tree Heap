@@ -1,0 +1,68 @@
+class Solution {
+    // for a tree to be a complete binary tree either it has to be
+    //1> perfect binary tree (all the levels are completely filled)
+    // 2> almost perfect binary tree (all level are completely filled except last one && nodes are filled from left to right)
+    int height=0;
+    boolean checkCompleteness(Node root,int lvl)
+    {
+        if(root==null) 
+        {
+            return true;
+        }
+        
+        if(root.left==null && root.right==null)
+        {
+            return true;
+        }
+        
+        if(lvl<height-1)
+        {
+            if(root.left==null || root.right==null) return false;
+        }
+        
+        if(lvl==height-1)
+        {
+            if(root.left==null && root.right!=null) return false;
+        }
+        
+        return true;
+    }
+    int prev=Integer.MIN_VALUE; // instance variable
+    boolean postOrder(Node root)
+    {
+        if(root==null) return true;
+        if(root.left==null && root.right==null) 
+        {
+            if(root.data>prev) prev=root.data;  // keep updating
+            return true;
+        }
+        
+        boolean left=postOrder(root.left);
+        if(left==false) return false;
+        boolean right=postOrder(root.right);
+        if(right==false) return false;
+        
+        if(root.data<prev) 
+        {
+            if(root.data>prev) prev=root.data;  // keep updating prev
+            return false;
+        }
+        
+        return true;
+    }
+    
+    int height(Node root){
+        if(root==null) return 0;
+        if(root.left==null && root.right==null) return 1;
+        
+        return 1+Math.max(height(root.left),height(root.right));
+    }
+    boolean isHeap(Node tree) {
+        // code here
+        height=height(tree);
+        if(checkCompleteness(tree,1)==false) return false;  
+        if(postOrder(tree)==false) return false;
+        
+        return true;
+    }
+}
