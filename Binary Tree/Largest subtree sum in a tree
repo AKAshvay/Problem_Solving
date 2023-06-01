@@ -1,0 +1,26 @@
+class Solution {
+    public static int ans;
+    public static int DFS(Node root)
+    {
+        if(root==null) return 0;
+        if(root.left==null && root.right==null) 
+        {
+            ans=Math.max(ans,root.data);    // keep updating ans
+            return root.data;
+        }
+        
+        int left=DFS(root.left);
+        int right=DFS(root.right);
+        
+        ans=Math.max(ans,left+right+root.data); // keep updating ans
+        
+        return left+right+root.data;
+    }
+    public static int findLargestSubtreeSum(Node root) {
+        // code here
+        if(root.left==null && root.right==null) return root.data;   // edge case
+        ans=Integer.MIN_VALUE;
+        DFS(root);
+        return ans;
+    }
+}
