@@ -1,0 +1,33 @@
+class Solution
+{
+    //Function to return list containing vertices in Topological order. 
+    static void topo(int curr,ArrayList<Integer> list,ArrayList<ArrayList<Integer>> adj,boolean[] visited)
+    {
+        if(visited[curr]) return ;
+        visited[curr]=true;
+        
+        for(int val : adj.get(curr))
+        {
+            if(visited[val]==false) topo(val,list,adj,visited);
+        }
+        list.add(curr);
+        return;
+    }
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    {
+        // add your code here
+        boolean[] visited=new boolean[V];
+        Arrays.fill(visited,false);
+        ArrayList<Integer> list=new ArrayList<>(); 
+        for(int i=0;i<V;i++) topo(i,list,adj,visited);
+        int[] ans=new int[list.size()];
+        
+        int idx=0;
+        for(int i=list.size()-1;i>=0;i--)   // list is containing the toposort in reverse order
+        {
+            ans[idx++]=list.get(i);
+            //System.out.print(list.get(i)+" ");
+        }
+        return ans;
+    }
+}
