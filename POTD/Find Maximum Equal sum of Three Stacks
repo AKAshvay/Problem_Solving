@@ -1,0 +1,42 @@
+class Solution {
+    public static int maxOfThree(int a,int b,int c)
+    {
+        if(a>=b && a>=c) return a;
+        else if(b>=a && b>=c) return b;
+        else return c;
+    }
+    public static int maxEqualSum(int N1,int N2,int N3, int[] S1, int[] S2, int[] S3) {
+        // my very own code submitted at the first attempt
+        int a=0;
+        int b=0;
+        int c=0;
+        for(int val:S1) a+=val;
+        for(int val:S2) b+=val;
+        for(int val:S3) c+=val;
+        
+        int i=0;
+        int j=0;
+        int k=0;
+        while(i<=N2 && j<=N2 && k<=N3)
+        {
+            if(a==b && b==c && a==c) return a;
+            else 
+            {
+                // find max of three
+                int max=maxOfThree(a,b,c);
+                if(max==a)
+                {
+                    a=a-S1[i++];
+                }
+                else if(max==b){
+                    b=b-S2[j++];
+                }
+                else{
+                    c=c-S3[k++];
+                }
+            }
+        }
+        
+        return 0;
+    }
+}
