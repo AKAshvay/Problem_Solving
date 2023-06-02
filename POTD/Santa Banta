@@ -1,0 +1,90 @@
+class Complete{
+    
+    static int ans=0;
+    static int count=0;
+    public static void DFS(int node, ArrayList<ArrayList<Integer>> adj,boolean[] visited) {
+        //Complete the function
+        visited[node]=true; // mark  it  as visited node
+        
+        count++;
+        for(int neighbour:adj.get(node))
+        {
+            if(visited[neighbour]==false)
+            DFS(neighbour,adj,visited);
+        }
+    }
+    public static void precompute()
+    {
+        // do nothing dont need it
+    }
+   
+    // Function for finding maximum and value pair
+    public static int helpSanta (int n, int m, int g[][]) {
+        // reset static variables for every single test cases
+        count=0;
+        ans=0;
+        
+        //step 1 prepare an adjacency list
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<=n;i++)
+        {
+            adj.add(new ArrayList<Integer>());
+        }
+        
+        for(int[] arr:g)
+        {
+            // u->v
+            adj.get(arr[0]).add(arr[1]);
+            // v->u
+            adj.get(arr[1]).add(arr[0]);
+        }
+        
+        boolean visited[]=new boolean[n+1];
+        
+        for(int i=1;i<=n;i++)
+        {
+            ans=Math.max(ans,count);
+            count=0; // reset for every new island
+            
+            if(visited[i]==false)
+            DFS(i,adj,visited);    
+        }
+        ans=Math.max(ans,count);
+        if(ans==0 ||ans==1) return -1;
+        else return findNthPrime(ans);
+    }
+    
+// ChaGPT has given this below optimized code to find the nth prime no 
+    public static int findNthPrime(int n) {
+    if (n <= 0) {
+        throw new IllegalArgumentException("Invalid input: n must be a positive integer.");
+    }
+    
+    int count = 0;
+    int number = 2;
+
+    while (count < n) {
+        if (isPrime(number)) {
+            count++;
+        }
+        number++;
+    }
+
+    return number - 1;
+}
+
+private static boolean isPrime(int num) {
+    if (num <= 1) {
+        return false;
+    }
+
+    // Check for divisibility up to the square root of the number
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+}
