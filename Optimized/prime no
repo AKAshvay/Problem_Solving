@@ -1,0 +1,32 @@
+public static int findNthPrime(int n) {   // n*sqrt(m)  // m is the no of checkings done
+    if (n <= 0) {
+        throw new IllegalArgumentException("Invalid input: n must be a positive integer.");
+    }
+    
+    int count = 0;
+    int number = 2;
+
+    while (count < n) {
+        if (isPrime(number)) {
+            count++;
+        }
+        number++;
+    }
+
+    return number - 1;
+}
+
+private static boolean isPrime(int num) { // T.C- O(underroot N)
+    if (num <= 1) {
+        return false;
+    }
+
+    // Check for divisibility up to the square root of the number
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
