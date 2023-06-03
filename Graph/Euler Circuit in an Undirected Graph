@@ -1,0 +1,51 @@
+class Solution
+{
+    public void DFS(int node,ArrayList<ArrayList<Integer>> adj,boolean[] visited)
+    {
+        visited[node]=true;
+        
+        for(int neighbours:adj.get(node))
+        {
+            if(!visited[neighbours]) DFS(neighbours,adj,visited);
+        }
+    }
+    public boolean isEularCircuitExist(int V, ArrayList<ArrayList<Integer>> adj)
+    {
+        // step 1 connectivity check
+        // pick any vertex having non zero outdegree . traverse all nodes and mark all as true 
+        // int the visited[] if there exits any node with degree>0 it means not a eulerian graph
+    
+        //step 2 count how many vertex are there having odd outdegree
+        // in eularian graph there is no vertex having odd outdegree
+        // in semi eularian graph there is exactly 2 vertex (starting and ending vertex) having odd outdegree
+        // if outdegree>2 not a eularian graph
+        
+        int node=0;
+        boolean visited[]=new boolean[V];
+        Arrays.fill(visited,false);
+        for(int i=0;i<V;i++)
+        {
+            if(adj.get(i).size()>0) 
+            {
+                node=i;
+                break;
+            }
+        }
+        
+        DFS(node,adj,visited);
+        for(int i=0;i<V;i++)
+        {
+            if(visited[i]==false && adj.get(i).size()>0) return false; // eularian circuit doesnt exist
+        }
+        
+        int count=0;
+        for(int i=0;i<V;i++)
+        {
+            if(adj.get(i).size()%2!=0) count++;
+        }
+        
+        if(count==0) return true;  // eularian circuit
+        else return false;  // not a eularian circuit
+        // in case of count==2 it means semi eularian circuit it is
+    }
+}
