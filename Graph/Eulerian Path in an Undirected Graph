@@ -1,0 +1,30 @@
+class Solution{
+    static int eulerPath(int N, int graph[][]){
+        // since in question it is mentined graph has one component we dont have to perform connectivity check
+        // for eular path just check  no of vertices having odd outdegree
+        
+        
+        // sorry bruhh dont know how to deal with adjacency matrix so converting it 🤷‍♂️
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<=N;i++) adj.add(new ArrayList<Integer>());
+        
+        boolean visited[]=new boolean[N+1];
+        
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                if(graph[i][j]==1) adj.get(i+1).add(j+1);
+            }
+        }
+        
+        int count=0;
+        for(int i=1;i<=N;i++)
+        {
+            if(adj.get(i).size()%2!=0) count++;
+        }
+        
+        if(count==0 || count==2) return 1;
+        else return 0;
+    }
+}
