@@ -22,3 +22,29 @@ class Solution
         return sb.toString();
     }
 }
+
+// this is the solution giving TLE just not using StringBuilder . refer above soln
+class Solution
+{
+   
+    String reverseEqn(String S)
+    {
+        // your code here
+        String ans="";
+        String temp="";
+        for(int i=S.length()-1;i>=0;i--)
+        {
+            if(S.charAt(i)-'0'>= 0 && S.charAt(i)-'0'<=9)
+            {
+                temp=S.charAt(i)+temp;
+            }
+            else{
+                ans+=temp;
+                ans+=S.charAt(i);
+                temp="";
+            }
+        }
+        ans=ans+temp;
+        return ans;
+    }
+}
