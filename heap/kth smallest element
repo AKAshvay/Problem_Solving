@@ -1,0 +1,36 @@
+class Solution{
+    public static void heapify(int[] arr,int i,int n){  // min_heapify
+        int smallest=i;
+        int l=2*i+1;
+        int r=2*i+2;
+
+        if(l<n && arr[l]<arr[smallest]) smallest=l;
+        if(r<n && arr[r]<arr[smallest]) smallest=r;
+
+        if(i!=smallest)
+        {
+            int temp=arr[i];
+            arr[i]=arr[smallest];
+            arr[smallest]=temp;
+
+            heapify(arr, smallest, n);
+        }
+    }
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //O(KlogN)
+        int n=arr.length;
+        for(int i=n/2-1;i>=0;i--)       // heapify all the internal nodes one by one  
+        heapify(arr,i,n);               // leaf nodes are already heapified so no need
+        
+        for(int i=n-1;i>=n-k;i--) 
+        {
+            int temp=arr[0];
+            arr[0]=arr[i];
+            arr[i]=temp;
+            
+            heapify(arr,0,i);
+        }
+        return arr[n-k];
+    } 
+}
