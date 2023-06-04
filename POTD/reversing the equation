@@ -1,0 +1,24 @@
+class Solution
+{
+   
+    String reverseEqn(String S) {
+        // use stringbuilder as it reduces the time complexity
+        StringBuilder sb = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+        
+        for (int i = S.length() - 1; i >= 0; i--) {
+            char c = S.charAt(i);
+            
+            if (Character.isDigit(c)) {
+                temp.insert(0, c);
+            } else {
+                sb.append(temp);
+                sb.append(c);
+                temp.setLength(0);
+            }
+        }
+        
+        sb.append(temp);
+        return sb.toString();
+    }
+}
