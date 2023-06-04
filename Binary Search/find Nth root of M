@@ -1,0 +1,17 @@
+class Solution
+{
+    public int NthRoot(int n, int m)
+    {
+        // nlog(m)
+        int l=1;
+        int r=m;
+        while(l<=r)
+        {
+            int mid=l+(r-l)/2;
+            if(Math.pow(mid,n)==m) return mid;
+            else if(Math.pow(mid,n)>m) r=mid-1;
+            else l=mid+1;
+        }
+        return -1;
+    }
+}
