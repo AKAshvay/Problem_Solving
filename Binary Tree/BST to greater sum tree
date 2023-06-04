@@ -1,0 +1,21 @@
+class Solution
+{
+    static int sum=0;
+    public static void RNL(Node root)
+    {
+        if(root==null) return ;
+        RNL(root.right);
+        
+        int temp=root.data;
+        root.data=sum; // modified the tree
+        sum+=temp;;
+        
+        RNL(root.left);
+    }
+    public static void transformTree (Node root)
+    {
+        //use RNL traversal
+        sum=0;  // for different test cases reset this value
+        RNL(root);
+    }
+}
