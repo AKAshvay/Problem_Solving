@@ -1,0 +1,23 @@
+class Solution {
+    ArrayList<Integer> maximumValue(Node node) {
+       //code here
+       ArrayList<Integer> list=new ArrayList<>();
+       Queue<Node> q=new LinkedList<>();
+        q.offer(node);
+        while(!q.isEmpty())
+        {
+            int max=Integer.MIN_VALUE;  
+            int size=q.size();
+            while(size-->0)
+            {
+                Node curr=q.poll();
+                max=Math.max(max,curr.data);
+                
+                if(curr.left!=null) q.offer(curr.left);
+                if(curr.right!=null) q.offer(curr.right);
+            }
+            list.add(max);
+        }
+        return list;
+    }
+}
