@@ -1,0 +1,28 @@
+public static void preorder(Node root,int key)
+{
+    if(root==null) return;
+    if(pre==null && root.data<key) pre=root;
+    if(suc==null && root.data>key) suc=root;
+    if(pre!=null)
+    {
+        if(root.data<key && root.data>pre.data) pre=root;
+    }
+    if(suc!=null)
+    {
+        if(root.data>key && root.data<suc.data) suc=root;
+    }
+    
+    preorder(root.left,key);
+    preorder(root.right,key);
+}
+public static void findPreSuc(Node root, int key)
+{
+    // code here.
+    preorder(root,key);
+    /* There are two static nodes defined above pre(representing predecessor) and suc(representing successor) as follows:
+       static Node pre=null,suc=null
+       You need to update these both.
+       And the data inside these classes will be printed automatically by the driver code. 
+    */
+}
+}
