@@ -1,0 +1,56 @@
+class Solution{
+    static void reverse(int[] arr,int i,int j)
+    {
+        while(i<j)
+        {
+            int temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;
+            i++;
+            j--;
+        }
+    }
+    static List<Integer> nextPermutation(int n, int arr[]){
+        // code here
+        ArrayList<Integer> list=new ArrayList<>();
+        // step 1
+        int idx1=-1;
+        for(int i=n-2;i>=0;i--)
+        {
+            if(arr[i]<arr[i+1])
+            {
+                idx1=i;
+                break;
+            }
+        }
+        
+        if(idx1==-1)    // in case of last permutation
+        {
+            for(int i=n-1;i>=0;i--) list.add(arr[i]);
+            return list;
+        }
+        
+        // step 2
+        int idx2=-1;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(arr[idx1]<arr[i])
+            {
+                idx2=i;
+                break;
+            }
+        }
+        // step 3 swap idx1 and idx2 elements
+        int temp=arr[idx1];
+        arr[idx1]=arr[idx2];
+        arr[idx2]=temp;
+        
+        //step 4 reverse whole array after idx1
+        reverse(arr,idx1+1,n-1);
+        
+        for(int element : arr) list.add(element);
+        
+        return list;
+        // adios amigos-- #good bye friend
+    }
+}
