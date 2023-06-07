@@ -1,0 +1,47 @@
+class Solution
+{
+    public static void setParent(Node root,Node parent,HashMap<Node,Node> map)
+    {
+        if(root==null) return;
+        map.put(root,parent);
+        setParent(root.left,root,map);
+        setParent(root.right,root,map);
+    }
+    public static void search(Node root,int k,HashMap<Node,Node> map,HashSet<Node> set,ArrayList<Integer> list)
+    {
+        if(root==null) return;
+        if(k<0) return; // **optimization necessary otherwise giving TLE
+        if(set.contains(root)) return;
+        else set.add(root); // mark it as visited
+        if(k==0) list.add(root.data);
+        search(root.left,k-1,map,set,list);
+        search(root.right,k-1,map,set,list);
+        search(map.get(root),k-1,map,set,list);
+    }
+    public static Node find(Node root,int target)
+    {
+        if(root==null) return null;
+        if(root.data==target) return root;
+        
+        Node left=find(root.left,target);
+        Node right=find(root.right,target);
+        
+        if(left!=null) return left;
+        else return right;
+    }
+    public static ArrayList<Integer> KDistanceNodes(Node root, int target , int k)
+    {
+        // Approach prepare a HashMap which will piont to parent for every nodes
+        // also make a HashSet for stroing visited nodes
+        ArrayList<Integer> list=new ArrayList<>();
+        HashSet<Node> set=new HashSet<>();  
+        HashMap<Node,Node> map=new HashMap<>(); 
+        
+        setParent(root,null,map);   // O(N)
+        Node target_node=find(root,target); //O(N)
+        search(target_node,k,map,set,list); 
+        
+        Collections.sort(list); // NlogN
+        return list;
+    }
+};
