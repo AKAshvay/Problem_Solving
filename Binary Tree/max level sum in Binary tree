@@ -1,0 +1,23 @@
+class Solution {
+    public int maxLevelSum(Node root) {
+        // BFS
+        Queue<Node> q=new LinkedList<>();
+        q.offer(root);
+        int sum=Integer.MIN_VALUE;
+        while(!q.isEmpty())
+        {
+            int size=q.size();
+            int currSum=0;
+            while(size-->0)
+            {
+                Node curr=q.poll();
+                currSum+=curr.data;
+                if(curr.left!=null) q.offer(curr.left);
+                if(curr.right!=null) q.offer(curr.right);
+            }
+            sum=Math.max(sum,currSum);
+        }
+        
+        return sum;
+    }
+}
