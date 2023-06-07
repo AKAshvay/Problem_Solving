@@ -1,0 +1,58 @@
+class Solution
+{
+    /*class Node {
+    	int data;
+    	Node left;
+    	Node right;
+    
+    	Node(int data) {
+    		this.data = data;
+    		left = null;
+    		right = null;
+    	}
+    }*/
+    public static Node find(Node root,int target)
+    {
+        if(root==null) return null;
+        if(root.data==target) return root;
+        
+        Node left=find(root.left,target);
+        Node right=find(root.right,target);
+        
+        if(left!=null) return left;
+        else return right;
+    }
+    public static void setParent(Node root,Node parent,HashMap<Node,Node> map)
+    {
+        if(root==null) return;
+        map.put(root,parent);
+        setParent(root.left,root,map);
+        setParent(root.right,root,map);
+    }
+    public static void burn(Node root,int currTime,HashMap<Node,Node> map,HashSet<Node> set)
+    {
+        if(root==null) return ;
+        if(set.contains(root)) return;
+        else set.add(root);
+        
+        time=Math.max(time,currTime);
+        
+        burn(root.left,currTime+1,map,set);
+        burn(root.right,currTime+1,map,set);
+        burn(map.get(root),currTime+1,map,set);
+    }
+    public static int time;
+    public static int minTime(Node root, int target) 
+    {
+        // Your code goes here
+        time=0; // reset this every time for different test cases
+        HashSet<Node> set=new HashSet<>();  
+        HashMap<Node,Node> map=new HashMap<>(); 
+        
+        setParent(root,null,map);   // O(N)
+        Node target_node=find(root,target); //O(N)
+        burn(target_node,0,map,set);
+        
+        return time;
+    }
+}
