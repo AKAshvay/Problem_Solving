@@ -1,0 +1,17 @@
+class Solution{
+    public Tree DFS(Tree root)
+    {
+        if(root==null) return null;
+        
+        Tree node=new Tree(root.data);
+        node.left=DFS(root.left);
+        node.right=DFS(root.right);
+        if(root.random!=null ) node.random=new Tree(root.random.data);
+        
+        return node;
+    }
+    public Tree cloneTree(Tree tree){
+       // add code here.
+       return DFS(tree);
+     }
+}
