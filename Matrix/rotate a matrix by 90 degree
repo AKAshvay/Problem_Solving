@@ -1,0 +1,33 @@
+class Solution
+{
+    //Function to rotate matrix anticlockwise by 90 degrees.
+    static void rotateby90(int matrix[][], int n) 
+    {
+        // step1 transpose the matrix
+        for(int row=0;row<n;row++)
+        {
+            for(int col=0;col<row;col++)
+            {
+                int temp=matrix[row][col];
+                matrix[row][col]=matrix[col][row];
+                matrix[col][row]=temp;
+            }
+        }
+        // step 2 reverse
+        // for anticlockwise direction->reverse all the columns  
+        // if it were clowise dirn then-> reverse all the rows
+        for(int col=0;col<n;col++)
+        {
+            int i=0;
+            int j=n-1;
+            while(i<j)
+            {
+                int temp=matrix[i][col];
+                matrix[i][col]=matrix[j][col];
+                matrix[j][col]=temp;
+                i++;
+                j--;
+            }
+        }
+    }
+}
