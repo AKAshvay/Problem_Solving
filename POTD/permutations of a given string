@@ -1,0 +1,86 @@
+class Solution {
+    public void reverse(char[] arr,int i,int j)
+    {
+         while(i<j)
+            {
+                char temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+                i++;
+                j--;
+            }
+    }
+    public void nextPermutation(char[] arr,int n,ArrayList<String> list)
+    {
+        // step 1 find idx1
+        int idx1=-1;
+        for(int i=n-2;i>=0;i--)
+        {
+            if(arr[i]<arr[i+1]) 
+            {
+                idx1=i;
+                break;
+            }
+        }
+        if(idx1==-1) // in case of last permutation reverse the array
+        {
+            int i=0;
+            int j=n-1;
+            reverse(arr,0,n-1);
+            return;
+        }
+        
+        //step 2 find idx2
+        int idx2=-1;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(arr[i]>arr[idx1])
+            {
+                idx2=i;
+                break;
+            }
+        }
+        //step 3 swap idx1 and idx2 elements
+        char temp=arr[idx1];
+        arr[idx1]=arr[idx2];
+        arr[idx2]=temp;
+        
+        // step 4 reverse the array from idx1+1 to last
+         reverse(arr,idx1+1,n-1);
+         StringBuilder sb=new StringBuilder("");
+         for(int i=0;i<n;i++) sb.append(arr[i]);
+         if(list.contains(sb.toString())) 
+         {
+             flag=false;
+             return ;
+         }
+         list.add(sb.toString());
+    }
+    public int fact(int n)
+    {
+        if(n==0) return 1;
+        return n*fact(n-1);
+    }
+    Boolean flag=true;
+    public List<String> find_permutation(String S) {
+        flag=true; // reset for different test cases
+        int n=S.length();
+        ArrayList<String> list=new ArrayList<>();
+        
+        char[] arr=S.toCharArray();
+        
+        
+        
+        for(int i=0;i<n;i++) arr[i]=S.charAt(i);
+        Arrays.sort(arr);
+        String kukoo="";
+        for(int i=0;i<n;i++) kukoo+=arr[i];
+        list.add(kukoo);
+        while(flag)    
+        {
+            nextPermutation(arr,n,list);    
+        }
+        
+        return list;
+    }
+}
