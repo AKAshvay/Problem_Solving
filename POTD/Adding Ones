@@ -1,0 +1,28 @@
+class Solution {
+
+    public static void update(int a[], int n, int updates[], int k)
+    {
+        /*// Brute force O(n*k)
+        for(int i=0;i<n;i++)
+        {
+            int count=0;
+            for(int val:updates)
+            {
+                if(val<=i+1) count++;
+            }
+            a[i]=count;
+        }
+        */
+        
+        //optimized approach O(max(K,N))
+        for(int val:updates)    // this approach is working only because constraint is update[i]<=N
+        {
+            a[val-1]+=1;    // storing ferquencies of each element in a[]
+        }
+        for(int i=1;i<n;i++) // prefix sum
+        {
+            a[i]+=a[i-1];
+        }
+    }
+    
+}
