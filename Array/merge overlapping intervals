@@ -30,3 +30,63 @@ public:
         return ans;
     }
 };
+
+// JAVA SOLUTION HERE USING Pair Class
+
+class Solution
+{
+    public int[][] overlappedInterval(int[][] Intervals)
+    {
+        // algorithm is there
+        // didn't get the time complexity
+        
+        int n=Intervals.length;
+        
+        Pair[] arr=new Pair[n];
+        
+        for(int i=0;i<n;i++)
+        {
+            arr[i]=new Pair(Intervals[i][0],Intervals[i][1]);
+        }
+        
+        Arrays.sort(arr, new Comparator<Pair>() {
+        @Override
+        public int compare(Pair p1, Pair p2) {
+        return p1.start-p2.start;
+         }
+        });
+        
+        ArrayList<Pair> list=new ArrayList<>();
+        Pair curr=arr[0];
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i].start<=curr.end){
+                curr.end=Math.max(curr.end,arr[i].end);
+            }
+            else{
+                list.add(curr);
+                
+                curr=arr[i];
+            }
+        }
+        list.add(curr);
+        
+        int[][] ans=new int[list.size()][2];
+        for(int i=0;i<list.size();i++)
+        {
+            ans[i][0]=list.get(i).start;
+            ans[i][1]=list.get(i).end;
+        }
+        return ans;
+    }
+}
+class Pair{
+    int start;
+    int end;
+    
+    Pair(int start,int end)
+    {
+        this.start=start;
+        this.end=end;
+    }
+}
