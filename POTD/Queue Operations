@@ -1,0 +1,29 @@
+class Geeks{
+    
+    // Function to insert element into the queue
+    static void insert(Queue<Integer> q, int k){
+        
+        // Your code here
+        q.offer(k);
+    }
+    
+    // Function to find frequency of an element
+    // rteturn the frequency of k
+    static int findFrequency(Queue<Integer> q, int k){
+        
+        // Your code here
+        Queue<Integer> que=new LinkedList<>();
+        int count=0;
+        while(!q.isEmpty())
+        {
+            int temp=q.poll();
+            que.offer(temp);
+            if(k==temp) count++;
+        }
+        
+        while(!que.isEmpty()) q.offer(que.poll());  // making original queue as it is
+        
+        if(count==0) return -1;
+        return count;
+    }
+}
