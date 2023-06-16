@@ -1,0 +1,39 @@
+public class Main{
+  public static void main(String[] args){
+    // creation
+    StringBuilder sb=new StringBuilder("shivansh");
+    // append
+    sb.append(" Rahangdale");
+    // finding length()
+    int size=sb.length();
+    // replace
+    sb.replace(0,sb.length(),"new String");
+    //accessing character at specific index
+    char ch=sb.charAt(idx);
+    // changing character at specific index
+    sb.setCharAt(3,'T');
+    //inerting new string or character at specified index
+    sb.insert(idx,"string_to_be_inserted");
+    //deleting a substring
+    sb.delete(start_idx(inclusive),end_idx(exclusive));
+    // deleting till end
+    sb.delete(start_idx,sb.length());
+    //reversing a string 
+    sb.reverse();
+    // manually reversing it
+      int i=0;
+	    int j=sb.length()-1;
+	    while(i<j)  
+	    {
+	        char ch=sb.charAt(i);
+	        sb.setCharAt(i,sb.charAt(j));
+	        sb.setCharAt(j,ch);
+	        i++;
+	        j--;
+	    }
+    // convertin from StringBuilder to String
+    String str=sb.toString();
+    //replacing an string toUpperCase()/toLowerCase() of it
+    sb.replace(0,sb.length(),sb.toString().toUpperCase());
+  }
+}
