@@ -1,0 +1,69 @@
+class Solution {
+    
+    public static long solve(int location,int idx,ArrayList<Integer> list,HashMap<Integer,Integer> map1,HashMap<Integer,Integer> map2,long[][] dp,int indication)
+    {
+        if(idx==list.size()) return 0;
+        if(dp[idx][indication]!=-1) return dp[idx][indication];
+        
+        int curr=list.get(idx);
+        int left=map1.get(curr);
+        int right=map2.get(curr);
+        long first=Math.abs(location-left)+Math.abs(left-right)+solve(right,idx+1,list,map1,map2,dp,1);
+        if(idx==list.size()-1) first+=Math.abs(right-0);
+        long second=Math.abs(location-right)+Math.abs(left-right)+solve(left,idx+1,list,map1,map2,dp,0);
+        if(idx==list.size()-1) second+=Math.abs(left-0);
+        
+        return dp[idx][indication]=Math.min(first,second); 
+    }
+    public static long minTime(int n, int[] locations, int[] types) {
+        // step 1 insted of sorting prepare a list which store types in ascending order
+        int maxVal=1;  // min is 1
+        for(int val:types) maxVal=Math.max(maxVal,val);
+        
+        int[] temp=new int[maxVal+1];
+        for(int val:types) temp[val]=1;
+        
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int i=0;i<=maxVal;i++)
+        {
+            if(temp[i]==1) list.add(i);
+            
+        }
+        
+        //step 2 prepare two maps which store min and max locations for all individual types of fruits
+        
+        HashMap<Integer,Integer> map1=new HashMap<>();
+        HashMap<Integer,Integer> map2= new HashMap<>();
+        
+        for(int i=0;i<n;i++)
+        {
+            int val=types[i];
+            if(map1.containsKey(val))
+            {
+                int min=map1.get(val);
+                map1.put(val,Math.min(min,locations[i]));
+                int max=map2.get(val);
+                map2.put(val,Math.max(max,locations[i]));
+            }
+            else{
+                map1.put(val,locations[i]);
+                map2.put(val,locations[i]);
+            }
+        }
+        /*
+        for (Map.Entry<Integer,Integer> mapElement : map2.entrySet()) {
+            Integer key = mapElement.getKey();
+ 
+            // Adding some bonus marks to all the students
+            int value =mapElement.getValue() ;
+            System.out.println(key + " : " + value);
+        }
+        */
+            
+        // step 3 try out all possible ways 
+        long[][] dp=new long[list.size()][2];
+        for(long[] arr:dp) Arrays.fill(arr,-1);
+        return solve(0,0,list,map1,map2,dp,0);
+    }
+}
+        
