@@ -1,0 +1,46 @@
+class Solution {
+    int findMidSum(int[] ar1, int[] ar2, int n) {
+        // time complexity - O(logn)
+        // space complexity - O(1) 
+        int first=n-1;
+        int second=n;
+        int sum=0;
+        int i=0;
+        int j=0;
+        int idx=0;
+        while(i<n && j<n)
+        {
+            if(idx==first){
+                if(ar1[i]<=ar2[j]) 
+                {
+                    sum+=ar1[i];
+                    i++;
+                }
+                else{
+                    sum+=ar2[j];
+                    j++;
+                }
+                idx++;
+                continue;
+            }
+            if(idx==second) 
+            {
+                if(ar1[i]<=ar2[j])
+                {
+                    sum+=ar1[i];
+                }
+                else sum+=ar2[j];
+                break;
+            }
+            if(ar1[i]<=ar2[j]) i++;   
+            else j++;
+            idx++;
+        }
+        if(i==n || j==n)
+        {
+            if(i==n) sum+=ar2[j];
+            else sum+=ar1[i];
+        }
+        return sum;
+    }
+}
