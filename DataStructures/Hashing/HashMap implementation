@@ -1,0 +1,91 @@
+class HashMap<k,v>{
+    Node[] arr=new Node[10];
+    int n=10;
+    
+    public int hash(int key)
+    {
+        return key%n;
+    }
+    
+    public void put(int key,int value)
+    {
+        int idx=hash(key);
+        if(arr[idx]!=null){
+            Node t=arr[idx];
+            while(t.next!=null) t=t.next;
+            t.next=new Node(key,value);
+        }
+        else
+        arr[idx]=new Node(key,value);
+    }
+    
+    public boolean containsKey(int key)
+    {
+        int idx=hash(key);
+        Node curr=arr[idx];
+        while(curr!=null)
+        {
+            if(curr.key==key) return true;
+            curr=curr.next;
+        }
+        return false;
+    }
+    
+    public int get(int key)
+    {
+        int idx=hash(key);
+        Node t=arr[idx];
+        while(t!=null)
+        {
+            if(t.key==key) return t.value;
+        }
+        
+        return -1;
+    }
+    public void remove(int key)
+    {
+        int idx=hash(key);
+        Node temp=arr[idx];
+        if(temp==null) return;
+        if(temp.next==null)
+        {
+            if(temp.key==key)
+            {
+                arr[idx]=null;
+                return;
+            }
+        }
+        while(temp.next.next!=null)
+        {
+            if(temp.next.key==key)
+            {
+                temp.next=temp.next.next;
+                return;
+            }
+        }
+    }
+}
+class Node{
+    int key;
+    int value;
+    int hash;
+    Node next;
+    
+    Node(int key,int value)
+    {
+        this.key=key;
+        this.value=value;
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+	    HashMap<Integer,Integer> map=new HashMap<>();
+	    map.put(1,2);
+	    map.put(456,10);
+	    map.put(11,34);
+	    map.remove(1);
+	    
+		System.out.println(map.containsKey(11));
+	}
+}
