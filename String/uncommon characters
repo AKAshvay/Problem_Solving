@@ -1,0 +1,40 @@
+class Solution
+{
+    String UncommonChars(String A, String B)
+    {
+        // first find the intersection i.e. common elements 
+        HashSet<Character> set=new HashSet<Character>();
+        for(char ch:A.toCharArray()) set.add(ch);
+        
+        HashSet<Character> set2=new HashSet<>();    // it will contain the intersection
+        for(char ch:B.toCharArray())
+        {
+            if(set.contains(ch)) set2.add(ch);
+        }
+        
+        HashSet<Character> set3=new HashSet<>();
+        for(char ch:A.toCharArray())
+        {
+            if(!set2.contains(ch)) set3.add(ch);
+        }
+        for(char ch:B.toCharArray())
+        {
+            if(!set2.contains(ch)) set3.add(ch);
+        }
+        
+        
+        StringBuilder sb=new StringBuilder("");
+        Iterator it=set3.iterator();
+        while(it.hasNext())
+        {
+            sb.append(it.next());
+        }
+        
+        
+        
+        char ans[]=sb.toString().toCharArray();
+        Arrays.sort(ans);
+        if(ans.length==0) return "-1";
+        return String.valueOf(ans);
+    }
+}
