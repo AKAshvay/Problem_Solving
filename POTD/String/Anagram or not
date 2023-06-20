@@ -1,0 +1,36 @@
+class Solution
+{    
+    //Function is to check whether two strings are anagram of each other or not.
+    public static boolean isAnagram(String a,String b)
+    {
+        int n=a.length();
+        if(n!=b.length()) return false; 
+        
+        HashMap<Character,Integer> map=new HashMap<>();
+        
+        for(char ch : a.toCharArray()) 
+        {
+            if(map.containsKey(ch))
+            {
+                int frequency=map.get(ch);
+                frequency++;
+                map.put(ch,frequency);
+            }
+            else map.put(ch,1);
+        }
+        
+        for(char ch:b.toCharArray())
+        {
+            if(map.containsKey(ch))
+            {
+                int frequency=map.get(ch);
+                frequency--;
+                if(frequency==0) map.remove(ch);
+                else map.put(ch,frequency);
+            }
+            else return false;
+        }
+        
+        return true;
+    }
+}
