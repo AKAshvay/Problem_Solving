@@ -1,0 +1,9 @@
+class Solution {
+    static int sumOfNaturals(int n) {
+        // code here
+        int mod=(int)(1e9+7); //insted of this 1000000007 use (1e97 it gives value in double);
+        long ans=(long)n*(long)(n+1);
+        ans/=2;
+        return (int)(ans%mod);
+    }
+};
