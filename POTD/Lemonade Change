@@ -1,0 +1,66 @@
+class Solution {
+    static boolean lemonadeChange(int N, int bills[]) {
+        // writing my approach having T.C- O(N*3) and constant space
+        if(bills[0]>5) return false;
+        
+        // creating frequency variables
+        int five=0;
+        int ten=0;
+        int twenty=0;
+        
+        for(int val:bills)
+        {
+            if(val==5)
+            {
+                five++;
+                continue;   // no need to return change
+            }
+            else if(val==10) ten++;
+            else twenty++;
+            
+            int change=val-5;
+            
+            if(change>=20 && twenty>0)  // if change is>=20 and we have some coins of twenty
+            {
+                int needed=change/20;
+                if(needed<=twenty)
+                {
+                    change-=needed=20;
+                    twenty-=needed;
+                }
+                else{
+                    change-=twenty*20;
+                    twenty=0;   // use all coins
+                }
+            }
+            
+            if(change>=10 && ten>0)
+            {
+                int needed=change/10;
+                if(needed<=ten)
+                {
+                    change-=needed*10;
+                    ten-=needed;
+                }
+                else{
+                    change-=ten*10;
+                    ten=0;
+                }
+            }
+            
+            if(change>=5 && five>0)
+            {
+                int needed=change/5;
+                if(needed<=five)
+                {
+                    change-=needed*5;   // now this line is not necessary
+                    five-=needed;   // imp to update frequency 
+                }
+                else return false;
+            }
+            else return false;  // change is not 0 yet and we dont have enough 5 frequency
+        }
+        
+        return true;
+    }
+}
