@@ -1,0 +1,21 @@
+class Solution {
+    static int leastInterval(int N, int K, char tasks[]) {
+        // code here
+        int[] arr=new int[26];
+        int maxf=0;
+        for(char ch : tasks)
+        {
+            arr[ch-'A']++;
+            maxf=Math.max(maxf,arr[ch-'A']);
+        }
+        
+        int count=0;
+        for(int val:arr) if(val==maxf) count++;
+        
+        int ans=(maxf-1)*(K+1)+count;
+        
+        if(N>ans) ans=N;
+        
+        return ans;
+    }
+}
