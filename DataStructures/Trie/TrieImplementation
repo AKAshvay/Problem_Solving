@@ -1,3 +1,26 @@
+class Node{
+    boolean flag;
+    Node[] links=new Node[26];
+    
+    boolean contains(char ch)
+    {
+        return links[ch-'a']!=null;
+    }
+    void put(char ch)
+    {
+        links[ch-'a']=new Node();
+    }
+    
+    Node get(char ch)
+    {
+        return links[ch-'a'];
+    }
+    
+    void setEnd()
+    {
+        flag=true;
+    }
+}
 class Trie{
     Node root;
     
