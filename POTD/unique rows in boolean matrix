@@ -1,0 +1,105 @@
+class GfG
+{
+    public static ArrayList<ArrayList<Integer>> uniqueRow(int a[][],int r, int c)
+    {
+        // lets do it using trie 
+        ArrayList<ArrayList<Integer>> list=new ArrayList<>();
+        
+        Trie obj=new Trie();
+        int count=0;
+        for(int[] arr:a)
+        {
+            StringBuilder sb=new StringBuilder("");
+            ArrayList<Integer> temp=new ArrayList<>();
+            for(int val:arr)
+            {
+                temp.add(val);
+                sb.append(val);
+            }
+            if(!obj.search(sb.toString())) 
+            {
+                list.add(temp);
+                obj.insert(sb.toString());
+            }
+        }
+        
+        return list;
+    }
+}
+class Node{
+    boolean flag;
+    Node[] links=new Node[2];
+    
+    boolean contains(char ch)
+    {
+        return links[ch-'0']!=null;
+    }
+    void put(char ch)
+    {
+        links[ch-'0']=new Node();
+    }
+    
+    Node get(char ch)
+    {
+        return links[ch-'0'];
+    }
+    
+    void setEnd()
+    {
+        flag=true;
+    }
+}
+class Trie{
+    Node root;
+    
+    Trie(){
+        root=new Node();
+    }
+    
+    void insert(String word)  // T.C - O(|word|)
+    {
+        Node node=root;
+        for(int i=0;i<word.length();i++)
+        {
+            char ch=word.charAt(i);
+            if(!node.contains(ch))
+            {
+                node.put(ch);
+            }
+            node=node.get(ch);  // moves to next refrence node
+        }
+        
+        node.setEnd();
+    }
+    boolean search(String word)  // T.C - O(|word|)
+    {
+        Node node=root;
+        
+        for(int i=0;i<word.length();i++)
+        {
+            char ch=word.charAt(i);
+            
+            if(!node.contains(ch)) return false;
+            else{
+                node=node.get(ch);
+            }
+        }
+        return node.flag;
+    }
+    
+    boolean startsWith(String word)  // T.C - O(|word|)
+    {
+        Node node=root;
+        
+        for(int i=0;i<word.length();i++)
+        {
+            char ch=word.charAt(i);
+            
+            if(!node.contains(ch)) return false;
+            else{
+                node=node.get(ch);
+            }
+        }
+        return true;
+    }
+}
