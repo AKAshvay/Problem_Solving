@@ -1,0 +1,46 @@
+
+class Solution{
+    String lexicographicallyLongest(String arr[])
+    {
+        String longest=arr[0];
+        for(String str:arr)
+        {
+            if(str.compareTo(longest)>0) longest=str;
+        }
+        return longest;
+    }
+    String lexicographicallySmallest(String arr[])
+    {
+        String smallest=arr[0];
+        for(String str:arr)
+        {
+            if(str.compareTo(smallest)<0) smallest=str;
+        }
+        return smallest;
+    }
+    String longestCommonPrefix(String arr[], int n){
+        // use previously submitted approach but this time use StringBuilder which reduces TC
+        
+        //Arrays.sort(arr);   // NlogN giving TLE
+        
+        //instead of sorting just find the shortest and the longest string in O(N)
+        String shortest=lexicographicallySmallest(arr); 
+        String longest=lexicographicallyLongest(arr);
+        
+        int idx=0;
+        StringBuilder sb=new StringBuilder("");
+        while(idx<shortest.length() && idx<longest.length())
+        {
+            if(shortest.charAt(idx)==longest.charAt(idx))
+            {
+                sb.append(shortest.charAt(idx));
+                idx++;
+            }
+            else break;
+        }
+    
+        String ans=sb.toString();
+        if(ans.length()==0) return "-1";
+        else return ans;
+    }
+}
