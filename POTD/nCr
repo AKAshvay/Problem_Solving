@@ -1,0 +1,20 @@
+class Solution{
+    static int nCr(int n, int r)
+    {
+        int modd=(int)(1e9+7);
+        if(r>n)
+        return 0;
+        else if(r==n)
+        return 1;
+       int dp[][]=new int[n+1][r+1];
+       for(int i=0;i<n+1;i++){
+           for(int j=0;j<r+1;j++){
+               if(i==j||i==0||j==0)
+               dp[i][j]=1;
+               else
+               dp[i][j]=(int)((dp[i-1][j]+dp[i-1][j-1])%modd);
+           }
+       }
+       return dp[n][r];
+    }
+}
