@@ -1,0 +1,26 @@
+class Solution{
+
+    static int nextHappy(int N){
+        // code
+        for(int i=N+1;i<Integer.MAX_VALUE;i++)
+        {
+            N=i;
+            while(true)
+            {
+                
+            int num=0;
+            while(N>0)
+            {
+                int rm=N%10;
+                num+=Math.pow(rm,2);
+                N=N/10;
+            }
+            N=num;
+            if(N==1 || N==10 || N==100 || N==1000 || N==10000 || N==100000) return i;
+            if(N==4) break;
+            }
+        }
+        
+        return -1;
+    }
+}
