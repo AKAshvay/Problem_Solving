@@ -1,0 +1,23 @@
+class Solution {
+    int isDivisible(String s) {
+        // code here
+        int count1=0; // no of 1's in odd place from last
+        int count2=0;   // no of 1's in even place from last
+        boolean flag=true;
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            if(flag)
+            {
+                if(s.charAt(i)=='1') count1++;
+                flag=false;
+            }
+            else{
+                if(s.charAt(i)=='1') count2++;
+                flag=true;
+            }
+        }
+        
+        if((count1-count2)%3==0) return 1;  // if there difference is divisible by 3 then overall number is divisible by 3
+        else return 0;
+    }
+}
