@@ -1,0 +1,20 @@
+class Solution
+{
+    // root : the root Node of the given BST
+    // target : the target sum
+    public boolean traverse(Node root,int target,HashSet<Integer> set)
+    {
+        if(root==null) return false;
+        if(set.contains(root.data)) return true;
+        else set.add(target-root.data);
+        
+        return traverse(root.left,target,set) || traverse(root.right,target,set);
+    }
+    public int isPairPresent(Node root, int target)
+    {
+        // useing S.C O(N)
+        HashSet<Integer> set=new HashSet<>();
+        if(traverse(root,target,set)) return 1;
+        else return 0;
+    }
+}
