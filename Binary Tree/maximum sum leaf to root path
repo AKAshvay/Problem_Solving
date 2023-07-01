@@ -1,0 +1,26 @@
+class Solution
+{
+    static int ans;
+    public static void traverse(Node root,int sum)
+    {
+        if(root==null) return;
+        sum+=root.data;
+        if(root.left==null && root.right==null)
+        {
+            ans=Math.max(ans,sum);  
+            return;
+        }
+        
+        traverse(root.left,sum);
+        traverse(root.right,sum);
+    }
+    public static int maxPathSum(Node root)
+    {
+        //code here
+        if(root==null) return 0;
+        
+        ans=Integer.MIN_VALUE;
+        traverse(root,0);
+        return ans;
+    }
+}
