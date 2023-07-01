@@ -1,0 +1,29 @@
+class Solution
+{
+    boolean flag;
+    Node successor;
+    public void F(Node root,Node x)
+    {
+        if(root==null) return;
+        
+        F(root.left,x);
+        
+        if(flag)
+        {
+            successor=root;
+            flag=false;
+            return;
+        }
+        if(root==x) flag=true;
+        
+        F(root.right,x);
+    }
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+	public Node inorderSuccessor(Node root,Node x)
+    {
+        flag=false;
+        successor=null;
+        F(root,x);
+        return successor;
+    }
+}
