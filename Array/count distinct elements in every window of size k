@@ -1,0 +1,60 @@
+class Solution
+{
+    ArrayList<Integer> countDistinct(int A[], int n, int k)
+    {
+        // code here 
+        ArrayList<Integer> list=new ArrayList<>();
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int count=0;
+        for(int i=0;i<k;i++)
+        {
+            if(map.containsKey(A[i]))
+            {
+                int frequency=map.get(A[i]);
+                frequency++;
+                map.put(A[i],frequency);
+            }
+            else{
+                map.put(A[i],1);
+                count++;
+            }
+        }
+        
+        list.add(count);
+        
+        int left=0;
+        int right=k-1;
+        
+        while(right<=n-2)       // NOTE- intead of left and right pointer we could have used only j and j-k 
+        {
+            // dealing with left pointer
+            int frequency=map.get(A[left]);
+            frequency--;
+            if(frequency==0) 
+            {
+                map.remove(A[left]);
+                count--;
+            }
+            else map.put(A[left],frequency);
+            
+            left++;
+            
+            // dealing with right pointer
+            right++;
+            if(map.containsKey(A[right]))
+            {
+                int f=map.get(A[right]);
+                f++;
+                map.put(A[right],f);
+            }
+            else{
+                count++;
+                map.put(A[right],1);
+            }
+            
+            list.add(count);
+        }
+        
+        return list;
+    }
+}
