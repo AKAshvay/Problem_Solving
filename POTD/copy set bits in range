@@ -1,0 +1,15 @@
+class Solution{
+    static int setSetBit(int x, int y, int l, int r){
+        // optimized approach
+        for(int i=l;i<=r;i++)   // step 1> be int he range
+        {
+            int bitmask=1<<(i-1);   // step 2 find the bitmask
+            if((y&bitmask)!=0) // check if bit is set in y 
+            {
+                x=x|(1<<(i-1)); //if it is set bit also in x
+            }
+        }
+        
+        return x;
+    }
+}
