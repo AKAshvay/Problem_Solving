@@ -1,0 +1,18 @@
+class Solution
+{
+    //Function to find position of first set bit in the given number.
+    public static int getFirstSetBit(int n){
+            
+        // Your code here
+        int pos=1;
+        while(n>0)
+        {
+            int rm=n%2;
+            if(rm==1) return pos;
+            pos++;
+            n=n/2;
+        }
+        
+        return 0;
+    }
+}
