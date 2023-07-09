@@ -1,0 +1,16 @@
+class Solution
+{
+    //Function to find the smallest positive number missing from the array.
+    static int missingNumber(int arr[], int size)
+    {
+        // Your code here
+        int[] hash=new int[1000001];
+        for(int val:arr)
+        {
+            if(val>0) hash[val]+=1;
+        }
+        for(int i=1;i<=1000001;i++) if(hash[i]==0) return i;
+        
+        return -1;
+    }
+}
