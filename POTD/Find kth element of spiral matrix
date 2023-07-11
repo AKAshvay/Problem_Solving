@@ -1,0 +1,64 @@
+class Solution
+{
+    /*You are required to complete this method*/
+    int findK(int A[][], int n, int m, int k)
+    {
+	    // approach - preform the spiral traversal of matrix and maintain a counter 
+	    
+	    int top=0;
+	    int down=n-1;
+	    int right=m-1;
+	    int left=0;
+	    int dir=0; // 0 for right 1 for down 2 for left 3 for up
+	    
+	    int count=0;
+	    while(top<=down && left<=right)
+	    {
+	        if(dir==0)// right
+	        {
+	            for(int i=left;i<=right;i++)
+	            {
+	                count++;
+	                if(count==k) return A[top][i];
+	            }
+	            top++;
+	            dir=1;
+	        }
+	        
+	        else if(dir==1)// down
+	        {
+	            for(int i=top;i<=down;i++)
+	            {
+	                count++;
+	                if(count==k) return A[i][right];
+	            }
+	            dir=2;
+	            right--;
+	        }
+	        
+	        else if(dir==2)  // left
+	        {
+	            for(int i=right;i>=left;i--)
+	            {
+	                count++;
+	                if(count==k) return A[down][i];
+	            }
+	            dir=3;
+	            down--;
+	        }
+	        
+	        else if(dir==3) //up
+	        {
+	            for(int i=down;i>=top;i--)
+	            {
+	                count++;
+	                if(count==k) return A[i][left];
+	            }
+	            dir=0;
+	            left++;
+	        }
+	    }
+	    
+	    return -1;
+    }
+}
