@@ -1,0 +1,33 @@
+class Solution {
+    public static boolean isFrequencyUnique(int n, int[] arr) {
+        // code here
+        HashMap<Integer,Integer> map=new HashMap<>();
+        
+        for(int val:arr)
+        {
+            if(map.containsKey(val))
+            {
+                int frequency=map.get(val);
+                frequency++;
+                map.put(val,frequency);
+            }
+            else map.put(val,1);
+        }
+        
+        // now traverse map check if frequency is same use 
+        HashSet<Integer> set=new HashSet<>();
+        
+        for(Map.Entry<Integer,Integer> e : map.entrySet())  // traversing the whole map
+	    {
+	        int key=e.getKey();
+	        int value=e.getValue();
+	        
+	        if(set.contains(value)) return false;
+	        else set.add(value);
+	    }
+	    
+	    return true;
+        
+    }
+}
+        
