@@ -1,0 +1,32 @@
+class Solution
+{
+    public void solve(Stack<Integer> st,int middle)
+    {
+        if(st.size()==0) return ;
+        
+        if(middle==0)
+        {
+            st.pop();
+            return;
+        }
+        
+        int temp=st.pop();
+        solve(st,middle-1);
+        
+        st.push(temp);
+        return;
+    }
+    public void deleteMid(Stack<Integer>s,int sizeOfStack){
+        //  solving it  using recursion
+        int middle=-1;
+        if(sizeOfStack%2==0) // even
+        {
+            middle=sizeOfStack/2;
+            solve(s,middle);
+        }
+        else{
+            middle=(sizeOfStack+1)/2;
+            solve(s,middle-1);
+        }
+    } 
+}
