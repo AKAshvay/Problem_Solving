@@ -15,7 +15,7 @@ public class Main
 		}
 		System.out.println();
 		
-		Arrays.sort(arr,new Comparator<Pair>(){
+		Arrays.sort(arr,new Comparator<Pair>(){	// for ArrayList in case of Arrays.sort use Collections.sort(arr,Comparator<Pair>(){});
 		    public int compare(Pair p1,Pair p2)
 		    {
 		        return p1.y-p2.y;
