@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Pair[] arr=new Pair[5];
+		arr[0]=new Pair(1,2);
+		arr[1]=new Pair(2,23);
+		arr[2]=new Pair(3,1);
+		arr[3]=new Pair(4,25);
+		arr[4]=new Pair(5,40);
+		
+		for(Pair val:arr)
+		{
+		    System.out.print(val.y+" ");
+		}
+		System.out.println();
+		
+		Arrays.sort(arr,new Comparator<Pair>(){
+		    public int compare(Pair p1,Pair p2)
+		    {
+		        return p1.y-p2.y;
+		    }
+		});
+		
+		for(Pair val:arr)
+		{
+		    System.out.print(val.y+" ");
+		}
+	}
+}
+class Pair{
+    int x;
+    int y;
+    
+    Pair(int x,int y)
+    {
+        this.x=x;
+        this.y=y;
+    }
+}
