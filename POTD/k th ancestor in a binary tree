@@ -1,0 +1,24 @@
+class Solution
+{
+    public boolean DFS(Node root,ArrayList<Integer> list,int target)
+    {
+        if(root==null) return false;
+        list.add(root.data);
+        
+        if(root.data==target) return true;
+        
+        if(DFS(root.left,list,target) || DFS(root.right,list,target)) return true;
+        
+        list.remove(list.size()-1);
+        return false;
+    }
+    public int kthAncestor(Node root, int k, int node)
+    {
+        //Write your code here
+        ArrayList<Integer> list=new ArrayList<>();
+        DFS(root,list,node);
+        //System.out.println(list);
+        if(k>list.size()-1) return -1;
+        return list.get(list.size()-1-k);
+    }
+}
