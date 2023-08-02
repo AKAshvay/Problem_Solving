@@ -1,0 +1,52 @@
+class Solution {
+    int shortestDistance(int N, int M, int A[][], int X, int Y) {
+        // BFS is more efficient
+        boolean[][] visited=new boolean[N][M];
+        for(boolean[] arr:visited) Arrays.fill(arr,false);
+        
+        Queue<Triplet> q=new LinkedList<>();
+        
+        if(A[0][0]==0 || A[X][Y]==0) return -1;
+        q.offer(new Triplet(0,0,0));
+        visited[0][0]=true;
+        
+        while(!q.isEmpty())
+        {
+            Triplet curr=q.poll();
+            int x=curr.x;
+            int y=curr.y;
+            int steps=curr.steps;
+            
+            if(x==X && y==Y) return steps;
+            
+            int[] row={0,1,0,-1};
+            int[] col={1,0,-1,0};
+            
+            for(int i=0;i<4;i++)
+            {
+                int xpos=x+row[i];
+                int ypos=y+col[i];
+                
+                if(xpos<0 || xpos>=N || ypos<0 || ypos>=M || visited[xpos][ypos] || A[xpos][ypos]==0)
+                continue;
+                
+                visited[xpos][ypos]=true;
+                q.offer(new Triplet(xpos,ypos,steps+1));
+            }
+        }
+        
+        return -1;
+    }
+};
+class Triplet{
+    int x;
+    int y;
+    int steps;
+    
+    Triplet(int x,int y,int steps)
+    {
+        this.x=x;
+        this.y=y;
+        this.steps=steps;
+    }
+}
