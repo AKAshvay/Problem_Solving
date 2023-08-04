@@ -1,0 +1,21 @@
+class Solution
+{ 
+    static void insertAtBottom(int val,Stack<Integer> s)
+    {
+        if(s.isEmpty()) s.push(val);
+        else{
+            int temp=s.pop();
+            insertAtBottom(val,s);
+            s.push(temp);
+        }
+    }
+    static void reverse(Stack<Integer> s)
+    {
+        // add your code here
+        if(s.isEmpty() || s.size()==1) return ;
+        
+        int temp=s.pop();
+        reverse(s);
+        insertAtBottom(temp,s);
+    }
+}
