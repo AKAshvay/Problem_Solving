@@ -1,0 +1,33 @@
+class Solution
+{
+    public void swap (int i,int j,char[] s){
+        char temp=s[i];
+        s[i]=s[j];
+        s[j]=temp;
+    }
+    public void solve(int idx,char[] arr,ArrayList<String> list)
+    {
+        if(idx>=arr.length)
+        {
+            list.add(new String(arr));
+            return;
+        }
+        
+        for(int i=idx;i<arr.length;i++)
+        {
+            swap(i,idx,arr);
+            solve(idx+1,arr,list);
+            swap(idx,i,arr); // backtrack
+        }
+    }
+    public ArrayList<String> permutation(String S)
+    {
+        //Your code here
+        ArrayList<String> list=new ArrayList<>();
+        
+        solve(0,S.toCharArray(),list);
+        
+        Collections.sort(list);
+        return list;
+    }
+}
