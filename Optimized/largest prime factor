@@ -1,0 +1,14 @@
+class Solution{
+    static long largestPrimeFactor(int N) {
+        // T.C - O(sqrt(N))
+        int x=2;
+        while(x*x<=N)
+        {
+            if(N%x==0)
+            N=N/x;
+            else x++;
+        }
+        
+        return (long)N;
+    }
+}
