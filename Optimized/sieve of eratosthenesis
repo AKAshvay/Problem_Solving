@@ -1,0 +1,37 @@
+ static void soe(boolean[] arr)
+    {
+        int n=arr.length;
+        for(int i=2;i<n;i++)
+        {
+            if(arr[i]==true)
+            {
+                int curr=i*i;
+                while(curr<n && i<Math.sqrt(n))
+                {
+                    arr[curr]=false;
+                    curr+=i;
+                }
+            }
+        }
+    }
+    static long largestPrimeFactor(int N) {
+        // approach 1 simple start checking the natural no from 1 to N that if it is prime or not
+        // and if it is prime if N is divisible by it return it 
+        // it gauranteed that from 1 to N we will find one which is prime no 
+        // and N is divisible by that 
+        // because last one is N
+        
+        boolean[] arr=new boolean[N+1];
+        Arrays.fill(arr,true);
+        soe(arr);
+        
+        for(int i=N;i>=2;i--)
+        if(arr[i] && N%i==0) return i;
+        
+        return N;   // just for the sake of return type 
+                    // this statement is not reachable in any case
+                    // because smallest prime factors are 2 and 3 
+                    
+        //T.C - O(N*sqrt(N)) but expected is O(sqrt(N))
+        //S.C - O(1)
+    }
