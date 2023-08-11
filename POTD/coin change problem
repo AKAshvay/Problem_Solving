@@ -1,0 +1,28 @@
+class Solution {
+    public long solve(int idx,int sum,int[] coins,long[][] dp)
+    {
+        if(sum==0) return 1;
+        if(idx==0)
+        {
+            if(sum%coins[0]==0) return 1;
+            else return 0;
+        }
+        
+        
+        if(dp[idx][sum]!=-1) return dp[idx][sum];
+        
+        long pick=0;
+        if(sum-coins[idx]>=0) pick=Math.max(solve(idx,sum-coins[idx],coins,dp),solve(idx-1,sum-coins[idx],coins,dp));
+      
+        
+        long npick=solve(idx-1,sum,coins,dp);
+        
+        return dp[idx][sum]=pick+npick;
+    }
+    public long count(int coins[], int N, int sum) {
+        // doing it using recursion
+        long[][] dp=new long[N][sum+1];
+        for(long[] arr:dp) Arrays.fill(arr,-1);
+        return solve(N-1,sum,coins,dp);
+    }
+}
