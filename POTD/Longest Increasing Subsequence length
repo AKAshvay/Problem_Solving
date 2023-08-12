@@ -1,0 +1,45 @@
+class Solution 
+{
+    //Function to find length of longest increasing subsequence.
+    static int longestSubsequence(int size, int a[])
+    {
+        // solving it using binary search approch
+        // this approach is used because we are concerned about only length of the LIS
+        
+        ArrayList<Integer> list=new ArrayList<>();
+        
+        for(int key:a)
+        {
+            int i=0;
+            int j=list.size()-1;
+            // using b search just find element greated than key and replace it 
+            if(list.isEmpty() || list.get(j)<key) list.add(key);
+            else{
+                int ans=-1;
+                boolean flag=true;
+                while(i<=j) // finding the lower bound- first element from left which is greater than or equal to key
+                {
+                    int mid=i+(j-i)/2;
+                    if(list.get(mid)==key) 
+                    {
+                        flag=false;
+                        break; // override
+                    }
+                    else if(list.get(mid)<key)
+                    {
+                        i=mid+1;
+                    }
+                    else 
+                    {
+                        ans=mid;
+                        j=mid-1;
+                    }
+                }
+                if(flag)
+                list.set(ans,key);
+            }
+        }
+        
+        return list.size();
+    }
+} 
