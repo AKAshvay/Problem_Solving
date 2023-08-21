@@ -1,0 +1,34 @@
+class Solution
+{
+    public int  Count(int[][] matrix)
+    {
+        // code here
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(matrix[i][j]==0) continue;
+                int count=0;
+                for(int p=-1;p<=1;p++)
+                {
+                    for(int q=-1;q<=1;q++)
+                    {
+                        if(p==0 && q==0) continue;
+                        else
+                        {
+                            int xpos=i+p;
+                            int ypos=j+q;
+                            if(xpos>=0 && ypos>=0 && xpos<n && ypos<m && matrix[xpos][ypos]==0) count++; 
+                        }
+                    }
+                }
+                if(count>0 && count%2==0) ans++;
+            }
+        }
+        
+        return ans;
+    }
+}
