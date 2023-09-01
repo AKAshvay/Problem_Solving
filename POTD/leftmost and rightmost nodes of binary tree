@@ -1,0 +1,29 @@
+class Tree
+{
+    public static void printCorner(Node node)
+    {
+        
+        // just do the level order traversal
+        if(node==null) return;
+        Queue<Node> q=new LinkedList<>();
+        q.offer(node);
+        while(!q.isEmpty())
+        {
+            Boolean flag=true;
+            int size=q.size();
+            while(size-->0)
+            {
+                Node curr=q.poll();
+                if(flag)
+                {
+                    flag=false;
+                    System.out.print(curr.data+" ");
+                }
+                else if(size==0) System.out.print(curr.data+" ");
+                
+                if(curr.left!=null) q.offer(curr.left);
+                if(curr.right!=null) q.offer(curr.right);
+            }
+        }
+    }
+}
