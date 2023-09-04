@@ -1,0 +1,40 @@
+class Solution{
+    static boolean isFeasible(int i,int j,char[][] a,boolean[][] visited,int n,int m)
+    {
+        if(i<0 || i==n || j<0 || j==m) return false;
+        if(a[i][j]=='X' || visited[i][j]) return true;
+        else visited[i][j]=true;
+        
+        boolean down=isFeasible(i+1,j,a,visited,n,m);
+        boolean up=isFeasible(i-1,j,a,visited,n,m);
+        boolean right=isFeasible(i,j+1,a,visited,n,m);
+        boolean left=isFeasible(i,j-1,a,visited,n,m);
+        
+        return up&&down&&left&&right;
+    }
+    static void modify(int i,int j,char[][] a)
+    {
+        if(a[i][j]=='O') a[i][j]='X';
+        else return;
+        
+        modify(i+1,j,a);
+        modify(i-1,j,a);
+        modify(i,j+1,a);
+        modify(i,j-1,a);
+    }
+    static char[][] fill(int n, int m, char a[][])
+    {
+        // code here
+        boolean visited[][]=new boolean[n][m];
+        for(boolean[] arr:visited) Arrays.fill(arr,false);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(a[i][j]=='O' && visited[i][j]==false)
+                if(isFeasible(i,j,a,visited,n,m)) modify(i,j,a);
+            }
+        }
+        return a;
+    }
+}
