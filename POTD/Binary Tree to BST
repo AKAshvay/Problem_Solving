@@ -1,0 +1,32 @@
+class Solution
+{
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    int idx;
+    void DFS(Node root,ArrayList<Integer> list)
+    {
+        if(root==null) return;
+        
+        list.add(root.data);
+        DFS(root.left,list);
+        DFS(root.right,list);
+    }
+    void inorder(Node root,ArrayList<Integer> list)
+    {
+        if(root==null) return;
+        inorder(root.left,list);
+        root.data=list.get(idx);
+        idx++;
+        inorder(root.right,list);
+    }
+    Node binaryTreeToBST(Node root)
+    {
+       // Your code here
+       ArrayList<Integer> list=new ArrayList<>();
+       DFS(root,list);
+       Collections.sort(list);
+       idx=0;
+       inorder(root,list);
+       return root;
+    }
+}
