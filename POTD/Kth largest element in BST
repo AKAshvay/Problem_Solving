@@ -1,0 +1,26 @@
+class Solution
+{
+    // return the Kth largest element in the given BST rooted at 'root'
+    int count;
+    public int reverseInorder(Node root)
+    {
+        if(root==null) return 0;    
+        
+        //RNL
+        int right=reverseInorder(root.right);
+        count--;
+        if(count==0) return root.data;
+        int left=reverseInorder(root.left);
+        
+        if(left!=0) return left;
+        else if(right!=0) return right;
+        else
+        return 0;
+    }
+    public int kthLargest(Node root,int K)
+    {
+        //Your code here
+        count=K;
+        return reverseInorder(root);
+    }
+}
