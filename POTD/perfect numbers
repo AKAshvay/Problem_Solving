@@ -1,0 +1,17 @@
+class Solution {
+    static int isPerfectNumber(long N) {
+        // code here
+        long divisor_sum=1;
+        if(N<=1) return 0;
+        for(int i=2;i<Math.sqrt(N);i++)
+        {
+            if(N%i==0) 
+            {
+                divisor_sum+=i+N/i;
+            }
+            if(divisor_sum>N) break;
+        }
+        if(divisor_sum==N) return 1;
+        else return 0;
+    }
+};
