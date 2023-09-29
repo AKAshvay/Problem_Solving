@@ -1,0 +1,39 @@
+class Solution {
+    int temp;
+    int count;
+    boolean DFS(int row,int col,int[][] grid,int[][] visited,int n,int m)
+    {
+        if(row<0 || col<0 || row==n || col==m) return false;
+        if(grid[row][col]==0) return true;
+        if(visited[row][col]==1) return true;
+        visited[row][col]=1;
+        temp++;
+        
+        if(DFS(row+1,col,grid,visited,n,m) && DFS(row-1,col,grid,visited,n,m) && DFS(row,col+1,grid,visited,n,m) &&
+        DFS(row,col-1,grid,visited,n,m)) 
+        {
+            return true;
+        }
+        
+        visited[row][col]=0;
+        return false;
+    }
+    int numberOfEnclaves(int[][] grid) {
+        // Your code here
+        count=0;
+        int n=grid.length;
+        int m=grid[0].length;
+        int[][] visited=new int[n][m];
+        for(int[] arr:visited) Arrays.fill(arr,0);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                temp=0;
+                if(grid[i][j]==1 && visited[i][j]==0)
+                if(DFS(i,j,grid,visited,n,m)) count+=temp;
+            }
+        }
+        return count;
+    }
+}
