@@ -1,0 +1,21 @@
+class Solution {
+    int distinctSubsequences(String S) {
+        // code here
+        int mod=1000000007;
+        HashMap<Character,Integer> map=new HashMap<>();
+        int[] ans=new int[S.length()+1];
+        ans[0]=1;   // for empty subsequence
+        for(int i=1;i<=S.length();i++)
+        {
+            char curr=S.charAt(i-1);
+            if(map.containsKey(curr))
+            {
+                ans[i]=((2*ans[i-1])%mod-ans[map.get(curr)-1]+mod)%mod;
+            }
+            else ans[i]=(2*ans[i-1])%mod;
+            
+            map.put(curr,i);
+        }
+        return (int)ans[S.length()];
+    }
+}
